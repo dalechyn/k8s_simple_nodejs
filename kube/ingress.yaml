@@ -5,20 +5,20 @@ metadata:
   namespace: default
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: /$(1)
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - http:
       paths:
-      - path: /foo/(.*)
-        pathType: Prefix
+      - path: /foo(/|$)(.*)
+        pathType: Exact
         backend:
           service:
             name: kube-foo-svc
             port: 
               number: 80
-      - path: /bar/(.*)
-        pathType: Prefix
+      - path: /bar(/|$)(.*)
+        pathType: Exact
         backend:
           service:
             name: kube-bar-svc
